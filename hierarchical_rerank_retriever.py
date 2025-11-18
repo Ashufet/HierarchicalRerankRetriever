@@ -146,7 +146,7 @@ class HierarchicalRerankRetriever(BaseRetriever):
                     )
                     all_sent_nodes.append(sent_index_node)
 
-        # 5) Build two vector indexes:
+        # 5) Build three vector indexes:
         #    - Sentence-level index
         self.sent_vector_index = VectorStoreIndex(all_sent_nodes, show_progress=True)
         #    - Sub node index
@@ -154,7 +154,7 @@ class HierarchicalRerankRetriever(BaseRetriever):
         #    - base chunk index
         self.base_vector_index = VectorStoreIndex(self.base_nodes, show_progress=True)
 
-        # 6) Create a retriever for the sentence-level index
+        # 6) Create a retriever for the sentence-level index and intermediate-level index
         self.sent_vector_retriever = self.sent_vector_index.as_retriever(
             similarity_top_k=self.similarity_top_k
         )
